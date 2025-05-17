@@ -1,0 +1,213 @@
+.chat-messages {
+  flex: 1;
+  padding: 1em;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.msg-user {
+  align-self: flex-end;
+  background: var(--color-accent);
+  color: #fff;
+  padding: 0.7em 1em;
+  border-radius: 4px 4px 0px 4px;
+  max-width: 85%;
+  width: fit-content;
+  display: inline-block;
+}
+
+.msg-ai {
+  align-self: flex-start;
+  background: var(--color-bg-panel-dark);
+  padding: 0.7em 1em;
+  border-radius: 4px 4px 4px 0px;
+  max-width: 85%;
+  color: var(--color-text);
+  font-size: 0.95em;
+  width: fit-content;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.msg-ai:first-child h1 {
+  margin-top: 0;
+  color: var(--color-accent);
+  font-size: 1.5em;
+}
+
+.msg-ai:first-child ul {
+  margin: 1em 0;
+  padding-left: 1.2em;
+}
+
+.msg-ai:first-child code {
+  background: var(--color-bg-panel-dark);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.msg-ai .error-message {
+  color: var(--color-danger);
+  background: var(--color-bg-panel-dark);
+  border: 1px solid var(--color-danger);
+  border-radius: 4px;
+  padding: 0.8em 1em;
+  margin: 0.5em 0;
+}
+
+.msg-command {
+  border-left: 3px solid var(--color-accent);
+}
+
+.msg-command.msg-error {
+  border-left: 3px solid var(--color-danger);
+}
+
+.command-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.command-status {
+  font-weight: 500;
+  margin-bottom: 0.5em;
+  padding: 0.3em 0.6em;
+  background: var(--color-bg-panel-darker);
+  border-radius: 4px;
+  font-size: 0.9em;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.msg-error .command-status {
+  color: var(--color-danger);
+}
+
+.msg-ai .result-icon {
+  display: inline-block;
+  margin-right: 0.5em;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.msg-content {
+  position: relative;
+  text-align: left;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.markdown-content {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.markdown-content > * {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.markdown-content > *:first-child {
+  margin-top: 0;
+}
+
+.markdown-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.msg-actions {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  display: flex;
+  gap: 0.4em;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.msg-ai:hover .msg-actions {
+  opacity: 1;
+}
+
+.copy-btn {
+  background: var(--color-bg-panel);
+  color: var(--color-text-secondary);
+  border: none;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: var(--color-accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.copy-btn:active {
+  transform: translateY(0);
+}
+
+.copy-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.copy-btn.copied {
+  background: var(--color-success);
+  color: #fff;
+  animation: copyFeedback 1s ease-in-out;
+}
+
+@keyframes copyFeedback {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.copy-btn.copied svg {
+  animation: copyFeedback 1s ease-in-out;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 6px;
+  padding: 0.5em 0.7em;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+}
+
+.typing-indicator span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: typing 1.2s ease-in-out infinite;
+  opacity: 0.8;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.typing-indicator span:nth-child(1) { animation-delay: 0s; }
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(-4px); opacity: 1; }
+}

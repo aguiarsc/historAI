@@ -1,0 +1,121 @@
+.command-help {
+  padding: 0.5em 1em;
+  background: var(--color-bg-panel-dark);
+  border-bottom: 1px solid var(--color-border);
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.command-help-content {
+  padding: 0.8em;
+  background: var(--color-bg-panel);
+  border-radius: 4px;
+}
+
+.command-help-content h3 {
+  margin-top: 0;
+  color: var(--color-accent);
+  font-size: 1.1em;
+  margin-bottom: 0.8em;
+}
+
+.command-section {
+  margin-bottom: 1em;
+  padding-bottom: 0.8em;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.command-section:last-of-type {
+  border-bottom: none;
+}
+
+.command-section h4 {
+  margin: 0.5em 0;
+  font-size: 0.9em;
+  color: var(--color-text-secondary);
+}
+
+.command-help-content code {
+  display: block;
+  padding: 0.6em;
+  margin: 0.5em 0;
+  background: var(--color-bg-panel-dark);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85em;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--color-accent);
+}
+
+.command-notes {
+  margin-top: 1em;
+  font-size: 0.85em;
+}
+
+.command-notes p {
+  margin: 0.5em 0;
+  font-weight: 500;
+}
+
+.command-notes ul {
+  margin: 0.5em 0;
+  padding-left: 1.2em;
+}
+
+.command-notes li {
+  margin: 0.3em 0;
+  color: var(--color-text-secondary);
+}
+
+.help-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-bg-panel);
+  border-radius: 4px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.api-key-input {
+  padding: 0.5em 1em;
+  background: var(--color-bg-panel-dark);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.api-key-input input {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-bg-panel);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.5em;
+  font-size: 0.9em;
+  box-sizing: border-box;
+}
+
+.api-key-error {
+  color: var(--color-danger);
+  font-size: 0.9em;
+  margin-top: 0.5em;
+  padding: 0.5em;
+  background: var(--color-bg-panel);
+  border-radius: 4px;
+  border: 1px solid var(--color-danger);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-sizing: border-box;
+}

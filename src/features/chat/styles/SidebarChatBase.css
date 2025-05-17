@@ -1,0 +1,67 @@
+@import './ChatHeader.css';
+@import './ChatMessages.css';
+@import './ChatInput.css';
+@import './ChatMarkdown.css';
+@import './ChatDialog.css';
+@import './ChatHistory.css';
+
+.sidebar-chat {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-panel);
+  border-radius: 4px;
+  margin: 0.5rem;
+  box-shadow: var(--shadow);
+  height: 100%;
+  overflow: hidden;
+  min-height: 100px;
+}
+
+.api-key-input {
+  padding: 10px;
+  background-color: var(--color-bg-alt);
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.api-usage-container {
+  padding: 10px;
+  background-color: var(--color-bg-alt);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.usage-dashboard-button {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.usage-dashboard-button:hover {
+  background-color: var(--color-hover);
+}
+
+.sidebar-chat::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.sidebar-chat:has(.help-dialog)::before {
+  opacity: 1;
+  pointer-events: auto;
+}

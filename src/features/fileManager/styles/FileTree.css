@@ -1,0 +1,161 @@
+.filetree {
+  background: var(--color-bg-panel);
+  color: var(--color-text);
+  height: 60vh;
+  border-radius: 4px;
+  margin: 0.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filetree-header {
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-panel-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filetree-title {
+  font-size: 1.1em;
+}
+
+.filetree-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filetree-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--color-bg-panel);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filetree-action-btn:hover {
+  background: var(--color-bg-panel-dark);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.filetree-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.tree-root {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tree-children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tree-item {
+  margin: 1px 0;
+}
+
+.item-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.tree-item:hover > .item-content {
+  background: var(--color-bg-panel-dark);
+}
+
+.tree-item.selected > .item-content {
+  background: var(--color-bg-panel-dark);
+  border: 1px solid var(--color-accent);
+}
+
+.item-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  flex: 1;
+  min-width: 0;
+}
+
+.item-label svg {
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+
+.item-label span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-label input {
+  background: var(--color-bg-panel);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.2em 0.5em;
+  font-size: 1em;
+  width: 100%;
+  min-width: 0;
+}
+
+.item-label input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.item-actions {
+  display: flex;
+  gap: 0.2rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.item-content:hover .item-actions {
+  opacity: 1;
+}
+
+.item-actions button {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  padding: 0.3rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.item-actions button:hover {
+  background: var(--color-bg-panel);
+  color: var(--color-accent);
+}
+
+.item-actions button svg {
+  font-size: 0.9em;
+} 

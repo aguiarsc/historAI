@@ -1,0 +1,130 @@
+.editor-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.3rem 0.3rem 0.3rem 0.3rem;
+  background: var(--color-bg-panel-dark);
+  border-bottom: 1px solid var(--color-border);
+  align-items: center;
+  height: 36px;
+  flex-wrap: wrap;
+  min-height: 36px;
+  overflow-x: auto;
+}
+
+.editor-toolbar .toolbar-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.editor-toolbar .toolbar-group:last-child {
+  margin-left: auto;
+}
+
+.editor-toolbar button {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  padding: 0.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  height: 24px;
+  width: 24px;
+  opacity: 0.3;
+}
+
+.editor-toolbar button:hover {
+  background: var(--color-bg-panel);
+  color: var(--color-accent);
+  transform: translateY(-1px);
+  opacity: 1;
+}
+
+.editor-toolbar button:active {
+  transform: translateY(0);
+}
+
+.save-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  background: var(--color-bg-panel-dark);
+  border-radius: 4px;
+  color: var(--color-accent);
+  font-size: 0.9em;
+  animation: pulse 2s infinite;
+  opacity: 0.5;
+}
+
+.save-indicator::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.editor-tabs {
+  display: flex;
+  background: var(--color-bg-panel-dark);
+}
+
+.editor-tabs button {
+  flex: 1;
+  padding: 0.75em 1em;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.editor-tabs button.active {
+  color: var(--color-accent);
+  background: var(--color-bg-panel);
+  font-weight: bold;
+}
+
+.word-count {
+  color: var(--color-text-secondary);
+  font-size: 0.9em;
+  padding: 0.3em 0.6em;
+  background: var(--color-bg-panel-dark);
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .editor-toolbar {
+    height: auto;
+    padding: 0.3rem;
+    justify-content: center;
+  }
+  
+  .editor-toolbar .toolbar-group {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .word-count {
+    order: -1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+}

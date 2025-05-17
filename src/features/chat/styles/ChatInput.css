@@ -1,0 +1,108 @@
+.chat-input-row {
+  display: flex;
+  padding: 1em;
+  gap: 0.5em;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-panel-dark);
+}
+
+.chat-input-row input,
+.chat-input-row .chat-input-textarea {
+  flex: 1;
+  background: var(--color-bg-panel);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.6em 1em;
+  font-size: 1.3em;
+  transition: border 0.2s, box-shadow 0.2s;
+  resize: none;
+  min-height: 38px;
+  max-height: 120px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  display: block;
+}
+
+.chat-input-row .chat-input-textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(var(--color-accent-rgb), 0.2);
+}
+
+/* Remove extra vertical alignment issues */
+.chat-input-row .chat-input-textarea {
+  align-self: center;
+  overflow-y: auto;
+}
+
+.chat-input-row input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(var(--color-accent-rgb), 0.2);
+}
+
+.chat-input-row button {
+  width: 38px;
+  height: 38px;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-input-row button::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.chat-input-row button:hover::before {
+  transform: scale(2);
+  opacity: 0.2;
+}
+
+.chat-input-row button svg {
+  width: 16px;
+  height: 16px;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.chat-input-row button:hover svg {
+  transform: scale(1.1);
+}
+
+.chat-input-row button:disabled {
+  background: var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.chat-input-row button:disabled svg {
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+.chat-input-row button:not(:disabled):hover {
+  background: var(--color-accent-darker);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chat-input-row button:not(:disabled):active {
+  transform: translateY(0);
+}

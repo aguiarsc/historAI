@@ -1,0 +1,30 @@
+.table-tools {
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+}
+
+.table-tools button {
+  padding: 0.2rem;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  height: 24px;
+  width: 24px;
+}
+
+.table-tools button:hover {
+  background: var(--color-bg-panel-dark);
+  color: var(--color-accent);
+  transform: translateY(-1px);
+}
