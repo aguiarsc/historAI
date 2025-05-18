@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { FaFolder, FaFolderOpen, FaFile, FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
 import type { FileItemProps } from '../types'
 import { useEffect } from 'react'
@@ -25,17 +25,26 @@ export function FileItem({
   const [isEditing, setIsEditing] = useState(false)
   const [editName, setEditName] = useState(name)
   
+  const inputRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
     if (autoRenameId === id && !isEditing) {
       setIsEditing(true)
+      setEditName(name)
+    }
+  }, [autoRenameId, id, isEditing, name])
+  
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      // Focus the input when editing starts
+      inputRef.current.focus()
+      
+      // For files, move cursor to the start (before the .md)
       if (type === 'file') {
-        const dotIndex = name.lastIndexOf('.')
-        if (dotIndex > 0) {
-          setEditName(name)
-        }
+        inputRef.current.setSelectionRange(0, 0)
       }
     }
-  }, [autoRenameId, id, isEditing, name, type])
+  }, [isEditing, type])
 
   const handleRename = useCallback(() => {
     if (editName.trim() && editName !== name) {
@@ -67,13 +76,21 @@ export function FileItem({
           )}
           {isEditing ? (
             <input
+              ref={inputRef}
               type="text"
               value={editName}
               onChange={e => setEditName(e.target.value)}
               onBlur={handleRename}
               onKeyDown={handleKeyDown}
-              autoFocus
               onClick={e => e.stopPropagation()}
+              style={{
+                width: '100%',
+                background: 'var(--color-bg-panel)',
+                color: 'var(--color-text)',
+                border: '1px solid var(--color-border)',
+                borderRadius: '4px',
+                padding: '2px 4px'
+              }}
             />
           ) : (
             <span>{name}</span>

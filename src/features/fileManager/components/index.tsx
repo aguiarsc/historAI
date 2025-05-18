@@ -118,12 +118,13 @@ export default function FileTree({ onSelect, selectedFile, setFileContent, fileC
   const handleAdd = useCallback((parentId: string, type: 'file' | 'folder') => {
     const newNode: FileNode = {
       id: generateId(),
-      name: type === 'file' ? 'untitled.md' : 'New Folder',
+      name: type === 'file' ? '.md' : '',
       type,
       children: type === 'folder' ? [] : undefined,
       parentId
     }
     
+    // Set auto-rename ID to trigger editing mode
     setAutoRenameId(newNode.id)
 
     updateTree(
@@ -146,7 +147,7 @@ export default function FileTree({ onSelect, selectedFile, setFileContent, fileC
   const addRootLevel = useCallback((type: 'file' | 'folder') => {
     const newNode: FileNode = {
       id: generateId(),
-      name: type === 'file' ? 'untitled.md' : 'New Folder',
+      name: type === 'file' ? '.md' : '',
       type,
       children: type === 'folder' ? [] : undefined,
       parentId: null
