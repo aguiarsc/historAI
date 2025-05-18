@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react'
 import { FaFolder, FaFolderOpen, FaFile, FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
-import type { FileItemProps } from '../types'
+import type { FileItemProps, DragItemData } from '../types'
 import { useEffect } from 'react'
 
 /**
@@ -20,7 +20,14 @@ export function FileItem({
   onDelete,
   isSelected,
   level,
-  autoRenameId
+  autoRenameId,
+  onDrop,
+  onDragStart,
+  onDragEnd,
+  onDragOver,
+  onDragLeave,
+  isDragging = false,
+  isDropTarget = false
 }: FileItemProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [editName, setEditName] = useState(name)
@@ -36,10 +43,7 @@ export function FileItem({
   
   useEffect(() => {
     if (isEditing && inputRef.current) {
-      // Focus the input when editing starts
       inputRef.current.focus()
-      
-      // For files, move cursor to the start (before the .md)
       if (type === 'file') {
         inputRef.current.setSelectionRange(0, 0)
       }
@@ -62,8 +66,48 @@ export function FileItem({
     }
   }, [handleRename, name])
 
+  const handleDragStart = (e: React.DragEvent) => {
+    e.stopPropagation()
+    const dragData: DragItemData = { id, type, parentId: null }
+    e.dataTransfer.setData('application/json', JSON.stringify(dragData))
+    e.dataTransfer.effectAllowed = 'move'
+    onDragStart?.(id)
+  }
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (type === 'folder') {
+      e.dataTransfer.dropEffect = 'move'
+      onDragOver?.(id)
+    }
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
+    try {
+      const dragData: DragItemData = JSON.parse(e.dataTransfer.getData('application/json'))
+      if (dragData.id !== id && type === 'folder') {
+        onDrop?.(dragData.id, id)
+      }
+    } catch (error) {
+      console.error('Error handling drop:', error)
+    }
+  }
+
   return (
-    <li className={`tree-item ${isSelected ? 'selected' : ''}`} style={{ paddingLeft: `${level * 0.8}rem` }}>
+    <li 
+      className={`tree-item ${isSelected ? 'selected' : ''} ${isDragging ? 'dragging' : ''} ${isDropTarget ? 'drop-target' : ''}`}
+      style={{ paddingLeft: `${level * 0.8}rem` }}
+      draggable
+      onDragStart={handleDragStart}
+      onDragEnd={() => onDragEnd?.()}
+      onDragOver={handleDragOver}
+      onDragLeave={() => onDragLeave?.()}
+      onDrop={handleDrop}
+    >
       <div className="item-content">
         <div
           className="item-label"

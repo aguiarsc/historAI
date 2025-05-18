@@ -16,6 +16,15 @@ export default function FileTree({ onSelect, selectedFile, setFileContent, fileC
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set(['personal']))
   const [isLoading, setIsLoading] = useState(true)
   const [autoRenameId, setAutoRenameId] = useState<string>('')
+  const [dragState, setDragState] = useState<{
+    isDragging: boolean
+    draggedId: string | null
+    dropTargetId: string | null
+  }>({
+    isDragging: false,
+    draggedId: null,
+    dropTargetId: null
+  })
   const [showIcons] = useState<{[key: string]: React.ReactNode}>({
     folder: <FaFolder />,
     folderOpen: <FaFolderOpen />,
@@ -124,7 +133,6 @@ export default function FileTree({ onSelect, selectedFile, setFileContent, fileC
       parentId
     }
     
-    // Set auto-rename ID to trigger editing mode
     setAutoRenameId(newNode.id)
 
     updateTree(
@@ -179,6 +187,91 @@ export default function FileTree({ onSelect, selectedFile, setFileContent, fileC
     setAutoRenameId('')
   }, [tree, updateTree])
 
+  const findNodeById = useCallback((nodes: FileNode[], id: string): FileNode | null => {
+    for (const node of nodes) {
+      if (node.id === id) return node
+      if (node.children) {
+        const found = findNodeById(node.children, id)
+        if (found) return found
+      }
+    }
+    return null
+  }, [])
+  
+  const findParentId = useCallback((nodes: FileNode[], childId: string): string | null => {
+    for (const node of nodes) {
+      if (node.children) {
+        if (node.children.some(child => child.id === childId)) {
+          return node.id
+        }
+        const parentId = findParentId(node.children, childId)
+        if (parentId) return parentId
+      }
+    }
+    return null
+  }, [])
+
+  const moveNode = useCallback((nodeId: string, newParentId: string | null) => {
+    if (nodeId === newParentId) return
+    
+    const updateNodeParent = (nodes: FileNode[], targetId: string, newParentId: string | null): FileNode[] => {
+      return nodes.reduce<FileNode[]>((acc, node) => {
+        if (node.id === targetId) return acc
+        
+        if (node.id === newParentId) {
+          const movedNode = findNodeById(tree, targetId)
+          if (movedNode) {
+            return [
+              ...acc,
+              {
+                ...node,
+                children: [...(node.children || []), { ...movedNode, parentId: newParentId }]
+              }
+            ]
+          }
+        }
+        
+        if (node.id === findParentId(tree, targetId)) {
+          return [
+            ...acc,
+            {
+              ...node,
+              children: node.children?.filter(child => child.id !== targetId) || []
+            }
+          ]
+        }
+        
+        if (node.children) {
+          return [
+            ...acc,
+            {
+              ...node,
+              children: updateNodeParent(node.children, targetId, newParentId)
+            }
+          ]
+        }
+        
+        return [...acc, node]
+      }, [])
+    }
+    
+    if (newParentId === 'root') {
+      const movedNode = findNodeById(tree, nodeId)
+      if (movedNode) {
+        updateTree([
+          ...tree.filter(node => node.id !== nodeId),
+          { ...movedNode, parentId: null }
+        ])
+      }
+      setDragState(prev => ({ ...prev, dropTargetId: null, draggedId: null, isDragging: false }))
+      return
+    }
+    
+    const newTree = updateNodeParent(tree, nodeId, newParentId)
+    updateTree(newTree)
+    setDragState(prev => ({ ...prev, dropTargetId: null, draggedId: null, isDragging: false }))
+  }, [tree, updateTree, findNodeById, findParentId])
+
   const handleDelete = useCallback((id: string) => {
     const filterNodes = (nodes: FileNode[]): FileNode[] => {
       return nodes.filter(node => {
@@ -203,6 +296,31 @@ export default function FileTree({ onSelect, selectedFile, setFileContent, fileC
       setFileContent('')
     }
   }, [tree, updateTree, selectedFile, onSelect, setFileContent])
+
+  const renderTree = useCallback((nodes: FileNode[], level = 0) => {
+    return nodes.map((node) => (
+      <FileItem
+        key={node.id}
+        {...node}
+        expanded={expandedNodes.has(node.id)}
+        onToggle={toggleNode}
+        onSelect={onSelect}
+        onAdd={handleAdd}
+        onRename={handleRename}
+        onDelete={handleDelete}
+        onDrop={moveNode}
+        onDragStart={(id: string) => setDragState({ isDragging: true, draggedId: id, dropTargetId: null })}
+        onDragEnd={() => setDragState({ isDragging: false, draggedId: null, dropTargetId: null })}
+        onDragOver={(id: string) => setDragState(prev => ({ ...prev, dropTargetId: id }))}
+        onDragLeave={() => setDragState(prev => ({ ...prev, dropTargetId: null }))}
+        isSelected={selectedFile === node.id}
+        isDragging={dragState.draggedId === node.id}
+        isDropTarget={dragState.dropTargetId === node.id}
+        level={level}
+        autoRenameId={autoRenameId}
+      />
+    ))
+  }, [expandedNodes, toggleNode, onSelect, handleAdd, handleRename, handleDelete, moveNode, selectedFile, autoRenameId, dragState.draggedId, dragState.dropTargetId])
 
   useEffect(() => {
     if (selectedFile && fileContent !== undefined) {
@@ -243,21 +361,7 @@ export default function FileTree({ onSelect, selectedFile, setFileContent, fileC
           <div className="loading-indicator">Loading files...</div>
         ) : (
           <ul className="tree-root">
-            {tree.map(node => (
-              <FileItem
-                key={node.id}
-                {...node}
-                expanded={expandedNodes.has(node.id)}
-                onToggle={toggleNode}
-                onSelect={onSelect}
-                onAdd={handleAdd}
-                onRename={handleRename}
-                onDelete={handleDelete}
-                isSelected={selectedFile === node.id}
-                level={0}
-                autoRenameId={autoRenameId}
-              />
-            ))}
+            {renderTree(tree)}
           </ul>
         )}
       </div>
