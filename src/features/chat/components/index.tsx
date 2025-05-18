@@ -451,10 +451,10 @@ export default function SidebarChat() {
                 <div className="command-notes">
                   <p>Notes:</p>
                   <ul>
-                    <li>All your files are stored in the root directory which can not be changed</li>
+                    <li>All your folders and files are stored in the root directory which can not be changed</li>
                     <li>File extension ".md" will be added automatically if not provided in the filename</li>
                     <li>Location should be the path to the directory (e.g., "root/YourFolder/")</li>
-                    <li>Enclose values in double quotes</li>
+                    <li>Enclose argument values in double quotes</li>
                     <li>Context references (@root/YourFolder/file) provide additional information to Gemini</li>
                     <li>Directory references (@root/YourFolder/) include all files in that directory</li>
                     <li>Context should be added before the commands or prompt.</li>
