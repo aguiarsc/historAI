@@ -479,7 +479,7 @@ export default function SidebarChat() {
                 {loading && (
                   <div className="msg-ai">
                     <div className="typing-indicator">
-                      <span>.</span><span>.</span><span>.</span>
+                      <span></span><span></span><span></span>
                     </div>
                   </div>
                 )}

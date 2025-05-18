@@ -185,29 +185,47 @@
 
 .typing-indicator {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   padding: 0.5em 0.7em;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 24px;
+  background: var(--color-bg-panel-dark);
+  border-radius: 12px;
+  width: fit-content;
+  padding: 8px 12px;
 }
 
 .typing-indicator span {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   display: inline-block;
-  animation: typing 1.2s ease-in-out infinite;
-  opacity: 0.8;
   background-color: var(--color-accent);
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  opacity: 0.4;
+  animation: typing 1.4s infinite ease-in-out;
 }
 
-.typing-indicator span:nth-child(1) { animation-delay: 0s; }
-.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+.typing-indicator span:nth-child(1) { 
+  animation-delay: 0s;
+  background-color: var(--color-accent);
+}
+.typing-indicator span:nth-child(2) { 
+  animation-delay: 0.2s;
+  background-color: var(--color-accent);
+}
+.typing-indicator span:nth-child(3) { 
+  animation-delay: 0.4s;
+  background-color: var(--color-accent);
+}
 
 @keyframes typing {
-  0%, 100% { transform: translateY(0); opacity: 0.8; }
-  50% { transform: translateY(-4px); opacity: 1; }
+  0%, 100% { 
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% { 
+    transform: translateY(-2px);
+    opacity: 1;
+  }
 }
