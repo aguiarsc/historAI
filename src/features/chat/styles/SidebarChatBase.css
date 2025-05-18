@@ -33,18 +33,41 @@
   overflow-y: auto;
 }
 
+/* Header action buttons */
+.help-button,
+.api-key-button,
 .usage-dashboard-button {
   background: none;
   border: none;
-  color: var(--color-text);
+  color: var(--color-accent);
   cursor: pointer;
-  padding: 5px;
+  padding: 0.4em;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
 }
 
+.help-button:hover,
+.api-key-button:hover,
 .usage-dashboard-button:hover {
-  background-color: var(--color-hover);
+  background: var(--color-bg-panel);
+  transform: translateY(-1px);
+}
+
+.help-button:active,
+.api-key-button:active,
+.usage-dashboard-button:active {
+  transform: translateY(0);
+}
+
+.help-button[aria-expanded="true"],
+.api-key-button[aria-expanded="true"],
+.usage-dashboard-button[aria-expanded="true"] {
+  background: var(--color-bg-panel);
+  color: var(--color-accent);
 }
 
 .sidebar-chat::before {
