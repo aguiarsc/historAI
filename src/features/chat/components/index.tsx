@@ -499,7 +499,6 @@ export default function SidebarChat() {
                   e.preventDefault();
                   handleSend();
                 }
-                // Shift+Enter will insert a newline by default
               }}
               disabled={loading}
               rows={2}
