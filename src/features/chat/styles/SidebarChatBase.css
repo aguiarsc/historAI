@@ -33,7 +33,6 @@
   overflow-y: auto;
 }
 
-/* Header action buttons */
 .help-button,
 .api-key-button,
 .usage-dashboard-button {
@@ -87,4 +86,65 @@
 .sidebar-chat:has(.help-dialog)::before {
   opacity: 1;
   pointer-events: auto;
+}
+
+.command-section {
+  margin-bottom: 1.5rem;
+}
+
+.command-section h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.code-block {
+  position: relative;
+  background: var(--color-bg-panel-dark);
+  border-radius: 6px;
+  padding: 0.75rem 1rem 0.75rem 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.code-block code {
+  flex: 1;
+  min-width: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: inherit;
+  background: transparent;
+  margin-right: 0.5rem;
+  line-height: 1.5;
+}
+
+.copy-button {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.copy-button:hover {
+  background: var(--color-bg-panel);
+  color: var(--color-accent);
+}
+
+.copy-button:active {
+  transform: translateY(1px);
 }

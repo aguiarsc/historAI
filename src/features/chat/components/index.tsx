@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { FaBookmark, FaCode, FaPaperPlane, FaKey, FaQuestionCircle, FaPlus, FaChartBar } from 'react-icons/fa'
+import { FaBookmark, FaCode, FaPaperPlane, FaKey, FaQuestionCircle, FaPlus, FaChartBar, FaCopy } from 'react-icons/fa'
 import Message from './Message'
 import ChatHistory from './ChatHistory'
 import ApiUsageDashboard from './ApiUsageDashboard'
@@ -34,7 +34,15 @@ export default function SidebarChat() {
   const [error, setError] = useState<string | null>(null)
   const [apiKey, setApiKey] = useState('')
   const [showKey, setShowKey] = useState(false)
-  const [showHelp, setShowHelp] = useState(false)
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      // Optional: Show a toast or feedback here
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+  };
+
+  const [showHelp, setShowHelp] = useState(false);
   const [showUsageDashboard, setShowUsageDashboard] = useState(false)
   
   useEffect(() => {
@@ -438,15 +446,42 @@ export default function SidebarChat() {
                 <h3>File Management Commands</h3>
                 <div className="command-section">
                   <h4>Create a file</h4>
-                  <code>create --name="filename" --location="root/YourFolder/" --prompt="AI prompt to generate content"</code>
+                  <div className="code-block">
+                    <code>create --name="filename" --location="root/YourFolder/" --prompt="AI prompt to generate content"</code>
+                    <button 
+                      className="copy-button"
+                      onClick={() => copyToClipboard('create --name="filename" --location="root/YourFolder/" --prompt="AI prompt to generate content"')}
+                      title="Copy to clipboard"
+                    >
+                      <FaCopy size={14} />
+                    </button>
+                  </div>
                 </div>
                 <div className="command-section">
                   <h4>Edit (extend) a file</h4>
-                  <code>edit --name="filename" --location="root/YourFolder/" --prompt="AI prompt for new content" --option="extend"</code>
+                  <div className="code-block">
+                    <code>edit --name="filename" --location="root/YourFolder/" --prompt="AI prompt for new content" --option="extend"</code>
+                    <button 
+                      className="copy-button"
+                      onClick={() => copyToClipboard('edit --name="filename" --location="root/YourFolder/" --prompt="AI prompt for new content" --option="extend"')}
+                      title="Copy to clipboard"
+                    >
+                      <FaCopy size={14} />
+                    </button>
+                  </div>
                 </div>
                 <div className="command-section">
                   <h4>Edit (overwrite) a file</h4>
-                  <code>edit --name="filename" --location="root/YourFolder/" --prompt="AI prompt for new content" --option="overwrite"</code>
+                  <div className="code-block">
+                    <code>edit --name="filename" --location="root/YourFolder/" --prompt="AI prompt for new content" --option="overwrite"</code>
+                    <button 
+                      className="copy-button"
+                      onClick={() => copyToClipboard('edit --name="filename" --location="root/YourFolder/" --prompt="AI prompt for new content" --option="overwrite"')}
+                      title="Copy to clipboard"
+                    >
+                      <FaCopy size={14} />
+                    </button>
+                  </div>
                 </div>
                 <div className="command-notes">
                   <p>Notes:</p>
