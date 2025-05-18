@@ -36,7 +36,6 @@ export default function SidebarChat() {
   const [showKey, setShowKey] = useState(false)
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
-      // Optional: Show a toast or feedback here
     }).catch(err => {
       console.error('Failed to copy text: ', err);
     });
