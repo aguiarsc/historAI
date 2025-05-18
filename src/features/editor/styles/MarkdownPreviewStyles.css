@@ -26,17 +26,58 @@
   background: var(--color-bg-panel-dark);
 }
 
-.markdown-preview .markdown-italic {
+.markdown-preview em,
+.markdown-preview i {
   font-style: italic;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: skewX(-5deg);
+  display: inline-block;
+  padding: 0 0.1em;
+  margin: 0 -0.1em;
+  transform-origin: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.markdown-preview em:hover,
+.markdown-preview i:hover {
+  transform: skewX(-7deg) scale(1.02);
+  opacity: 0.9;
 }
 
 .markdown-preview .markdown-bold {
   font-weight: 600;
 }
 
-.markdown-preview .markdown-italic.markdown-bold {
+.markdown-preview em strong,
+.markdown-preview i strong,
+.markdown-preview strong em,
+.markdown-preview strong i {
   font-style: italic;
   font-weight: 600;
+  font-synthesis: style;
+  transform: skewX(-5deg) scale(1.02);
+  text-shadow: 0 0 1px rgba(0,0,0,0.1);
+}
+
+.markdown-preview pre em,
+.markdown-preview code em,
+.markdown-preview pre i,
+.markdown-preview code i {
+  transform: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  font-style: italic !important;
+}
+
+.markdown-preview li em,
+.markdown-preview li i,
+.markdown-preview p em,
+.markdown-preview p i {
+  transform: skewX(-5deg);
+  display: inline-block;
 }
 
 .markdown-preview h1:first-child,
