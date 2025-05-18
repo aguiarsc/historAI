@@ -438,22 +438,27 @@ export default function SidebarChat() {
                 <h3>File Management Commands</h3>
                 <div className="command-section">
                   <h4>Create a file</h4>
-                  <code>create --name="filename" --location="path/to/directory/" --prompt="AI prompt to generate content"</code>
+                  <code>create --name="filename" --location="root/YourFolder/" --prompt="AI prompt to generate content"</code>
                 </div>
                 <div className="command-section">
                   <h4>Edit (extend) a file</h4>
-                  <code>edit --name="filename" --location="path/to/directory/" --prompt="AI prompt for new content" --option="extend"</code>
+                  <code>edit --name="filename" --location="root/YourFolder/" --prompt="AI prompt for new content" --option="extend"</code>
                 </div>
                 <div className="command-section">
                   <h4>Edit (overwrite) a file</h4>
-                  <code>edit --name="filename" --location="path/to/directory/" --prompt="AI prompt for new content" --option="overwrite"</code>
+                  <code>edit --name="filename" --location="root/YourFolder/" --prompt="AI prompt for new content" --option="overwrite"</code>
                 </div>
                 <div className="command-notes">
                   <p>Notes:</p>
                   <ul>
-                    <li>File extension ".md" will be added automatically if not provided</li>
-                    <li>Location should be the path to the directory (e.g., "root/notes/")</li>
+                    <li>All your files are stored in the root directory which can not be changed</li>
+                    <li>File extension ".md" will be added automatically if not provided in the filename</li>
+                    <li>Location should be the path to the directory (e.g., "root/YourFolder/")</li>
                     <li>Enclose values in double quotes</li>
+                    <li>Context references (@root/YourFolder/file) provide additional information to Gemini</li>
+                    <li>Directory references (@root/YourFolder/) include all files in that directory</li>
+                    <li>Context should be added before the commands or prompt.</li>
+                    <li>Example: @root/Creatures/vampires.md create --name="werewolves" --location="root/Creatures/" --prompt="With the context provided, write an essay about werevolves as natural enemies of vampires"</li>
                   </ul>
                 </div>
               </div>
